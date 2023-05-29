@@ -5,6 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RentalRepository extends JpaRepository<Rental, Integer> {
-    List<Object> findAllByActualReturnDateIsNull();
-    List<Object> findAllByActualReturnDateIsNotNull();
+    List<Object> findAllByUserIdAndActualReturnDateIsNull(Integer userId);
+    List<Object> findAllByUserIdAndActualReturnDateIsNotNull(Integer userId);
 }
