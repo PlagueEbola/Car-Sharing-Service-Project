@@ -11,5 +11,5 @@ public interface RentalService {
 
     Rental getById(Integer id);
 
-    Rental setActualReturnDate(LocalDate actualReturnDate, Object rental);
+    Rental setActualReturnDate(LocalDate actualReturnDate, Rental rental);
 }
