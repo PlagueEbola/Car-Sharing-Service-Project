@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User find(Integer id) {
+    public User getById(Integer id) {
         return userRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Can't find user by id " + id));
     }
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void deleteById(Integer id) {
         userRepository.deleteById(id);
     }
 }

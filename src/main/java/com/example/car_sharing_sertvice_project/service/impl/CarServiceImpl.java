@@ -14,7 +14,7 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
 
     @Override
-    public Car find(Integer id) {
+    public Car getById(Integer id) {
         return carRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Can't find car by id " + id));
     }
@@ -25,7 +25,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void deleteById(Integer id) {
         carRepository.deleteById(id);
     }
 

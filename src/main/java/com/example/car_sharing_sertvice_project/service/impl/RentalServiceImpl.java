@@ -1,10 +1,10 @@
 package com.example.car_sharing_sertvice_project.service.impl;
 
 import com.example.car_sharing_sertvice_project.model.Rental;
-import com.example.car_sharing_sertvice_project.repository.CarRepository;
 import com.example.car_sharing_sertvice_project.repository.RentalRepository;
-import com.example.car_sharing_sertvice_project.repository.UserRepository;
+import com.example.car_sharing_sertvice_project.service.CarService;
 import com.example.car_sharing_sertvice_project.service.RentalService;
+import com.example.car_sharing_sertvice_project.service.UserService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,18 +15,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class RentalServiceImpl implements RentalService {
     private final RentalRepository rentalRepository;
-    private final CarRepository carRepository;
-    private final UserRepository userRepository;
+    private final CarService carService;
+    private final UserService userService;
 
     @Override
     public Rental create(LocalDate returnDate, Integer carId, Integer userId) {
         Rental rental = new Rental();
         rental.setRentalDate(LocalDate.now());
         rental.setReturnDate(returnDate);
-        rental.setCar(carRepository.findById(carId).orElseThrow(() ->
-                new NoSuchElementException("Can't find car by id " + carId)));
-        rental.setUser(userRepository.findById(userId).orElseThrow(() ->
-                new NoSuchElementException("Can't find user by id " + userId)));
+        rental.setCar(carService.getById(carId));
+        rental.setUser(userService.getById(userId));
         return rentalRepository.save(rental);
     }
 
