@@ -1,4 +1,4 @@
-package com.example.car_sharing_sertvice_project.service;
+package com.example.car_sharing_sertvice_project.service.impl;
 
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
