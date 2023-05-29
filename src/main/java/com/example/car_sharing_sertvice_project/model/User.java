@@ -30,7 +30,7 @@ public class User {
     private String password;
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    @JoinTable(name = "users_roles",
+    @JoinTable(name = "users_user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<UserRole> roles;
