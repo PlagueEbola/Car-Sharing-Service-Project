@@ -1,4 +1,4 @@
-package com.example.car_sharing_sertvice_project.dtos;
+package com.example.car_sharing_sertvice_project.dtos.response;
 
 import lombok.Data;
 
@@ -8,5 +8,4 @@ public class UserResponseDto {
     private String email;
     private String firstName;
     private String lastName;
-    private String password;
 }
