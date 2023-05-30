@@ -26,8 +26,10 @@ public class Rental {
     private LocalDate actualReturnDate;
     @OneToOne
     @JoinColumn(name = "car_id")
+    @EqualsAndHashCode.Exclude
     private Car car;
     @OneToOne
     @JoinColumn(name = "user_id")
+    @EqualsAndHashCode.Exclude
     private User user;
 }
