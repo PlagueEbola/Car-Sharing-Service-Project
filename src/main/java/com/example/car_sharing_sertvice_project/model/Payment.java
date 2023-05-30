@@ -11,6 +11,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import javax.validation.constraints.PositiveOrZero;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Table(name = "payments")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,7 @@ public class Payment {
     private PaymentType type;
     @OneToOne
     @JoinColumn(name = "rental_id")
+    @EqualsAndHashCode.Exclude
     private Rental rental;
     @PositiveOrZero
     private BigDecimal rentalCost;
