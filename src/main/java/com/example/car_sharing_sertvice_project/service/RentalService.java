@@ -1,14 +1,15 @@
 package com.example.car_sharing_sertvice_project.service;
 
+import com.example.car_sharing_sertvice_project.model.Rental;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface RentalService {
-    Object create(LocalDate returnDate, Integer carId, Integer userId);
+    Rental create(LocalDate returnDate, Integer carId, Integer userId);
 
-    List<Object> getByUserIdAndStatus(Integer id, boolean isActive);
+    List<Rental> getByUserIdAndStatus(Integer id, boolean isActive);
 
-    Object getById(Integer id);
+    Rental getById(Integer id);
 
-    Object setActualReturnDate(LocalDate actualReturnDate, Object rental);
+    Rental setActualReturnDate(LocalDate actualReturnDate, Rental rental);
 }

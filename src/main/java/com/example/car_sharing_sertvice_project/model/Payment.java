@@ -30,6 +30,7 @@ public class Payment {
     private PaymentType type;
     @OneToOne
     @JoinColumn(name = "rental_id")
+    @EqualsAndHashCode.Exclude
     private Rental rental;
     @PositiveOrZero
     private BigDecimal rentalCost;
@@ -44,4 +45,3 @@ public class Payment {
         FINE
     }
 }
-

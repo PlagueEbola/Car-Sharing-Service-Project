@@ -1,11 +1,14 @@
 package com.example.car_sharing_sertvice_project.service;
 
+import com.example.car_sharing_sertvice_project.model.Car;
+import java.util.List;
+
 public interface CarService {
-    Object find(Long id);
+    Car getById(Integer id);
 
-    void create(Object car);
+    Car save(Car car);
 
-    void update(Long id, Object car);
+    void deleteById(Integer id);
 
-    void delete(Long id);
+    List<Car> getAll();
 }

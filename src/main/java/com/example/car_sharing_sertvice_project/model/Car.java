@@ -26,6 +26,7 @@ public class Car {
     private String brand;
     @ManyToOne
     @JoinColumn(name = "car_type_id")
+    @EqualsAndHashCode.Exclude
     private CarType type;
     @PositiveOrZero
     private Integer inventory;
