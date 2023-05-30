@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,6 @@ import lombok.Setter;
 @Table(name = "rentals")
 @Getter
 @Setter
-@EqualsAndHashCode
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

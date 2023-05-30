@@ -10,7 +10,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.Set;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +17,6 @@ import lombok.Setter;
 @Table(name = "users")
 @Getter
 @Setter
-@EqualsAndHashCode
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +26,6 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
-    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(name = "users_user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
