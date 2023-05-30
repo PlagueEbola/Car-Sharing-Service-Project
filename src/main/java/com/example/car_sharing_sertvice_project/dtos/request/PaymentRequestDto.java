@@ -7,6 +7,6 @@ import lombok.Data;
 public class PaymentRequestDto {
     private String status;
     private String type;
-    private Long rentalId;
+    private Integer rentalId;
     private BigDecimal rentalCost;
 }
