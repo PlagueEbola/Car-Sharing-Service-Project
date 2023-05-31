@@ -1,11 +1,14 @@
 package com.example.carsharing.service;
 
 import com.example.carsharing.model.User;
+import java.util.Optional;
 
 public interface UserService {
-    User getById(Integer id);
+    User add(User user);
 
-    User save(User user);
+    User update(User user);
 
-    void deleteById(Integer id);
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findById(Long id);
 }
