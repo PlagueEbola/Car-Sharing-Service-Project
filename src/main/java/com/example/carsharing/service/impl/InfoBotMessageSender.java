@@ -23,7 +23,7 @@ public class InfoBotMessageSender extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update != null) {
-            sendMessage(update.getMessage().getChatId(), "Please write you email");
+            sendMessage(update.getMessage().getChatId(), "Please enter your email to receive notifications");
         } else if (update.getMessage().getText().contains("@gmail.com")) {
             updateUserWhitChatId(update.getMessage().getText(), update.getMessage().getChatId());
         }
