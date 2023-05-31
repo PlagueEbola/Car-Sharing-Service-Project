@@ -1,4 +1,4 @@
-package com.example.car_sharing_sertvice_project.dtos;
+package com.example.car_sharing_sertvice_project.dtos.request;
 
 import java.time.LocalDate;
 import lombok.Data;

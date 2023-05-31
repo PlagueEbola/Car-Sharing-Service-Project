@@ -1,4 +1,4 @@
-package com.example.car_sharing_sertvice_project.dtos;
+package com.example.car_sharing_sertvice_project.dtos.request;
 
 import java.math.BigDecimal;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.Data;
 public class PaymentRequestDto {
     private String status;
     private String type;
-    private Long rentalId;
+    private Integer rentalId;
     private BigDecimal rentalCost;
 }

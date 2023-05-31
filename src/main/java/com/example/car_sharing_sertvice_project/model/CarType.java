@@ -25,7 +25,7 @@ public class CarType {
     @Enumerated(value = EnumType.STRING)
     private TypeName typeName;
 
-    private enum TypeName {
+    public enum TypeName {
         SEDAN,
         SUV,
         HATCHBACK,
