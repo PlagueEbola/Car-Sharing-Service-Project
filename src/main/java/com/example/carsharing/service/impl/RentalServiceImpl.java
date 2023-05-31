@@ -17,19 +17,21 @@ public class RentalServiceImpl implements RentalService {
     private final RentalRepository rentalRepository;
     private final CarService carService;
     private final UserService userService;
+    private final InfoBotMessageSender botMessageSender;
 
     @Override
-    public Rental create(LocalDate returnDate, Integer carId, Integer userId) {
+    public Rental create(LocalDate returnDate, Long carId, Long userId) {
         Rental rental = new Rental();
         rental.setRentalDate(LocalDate.now());
         rental.setReturnDate(returnDate);
         rental.setCar(carService.getById(carId));
         rental.setUser(userService.getById(userId));
+        botMessageSender.sendMassageToUser(rental);
         return rentalRepository.save(rental);
     }
 
     @Override
-    public List<Rental> getByUserIdAndStatus(Integer id, boolean isActive) {
+    public List<Rental> getByUserIdAndStatus(Long id, boolean isActive) {
         if (isActive) {
             return rentalRepository.findAllByUserIdAndActualReturnDateIsNotNull(id);
         }
@@ -37,7 +39,7 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public Rental getById(Integer id) {
+    public Rental getById(Long id) {
         return rentalRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Can't find rental by id " + id));
     }

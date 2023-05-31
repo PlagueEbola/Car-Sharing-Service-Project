@@ -34,4 +34,5 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @EqualsAndHashCode.Exclude
     private Set<UserRole> roles;
+    private Long telegramChatId;
 }
