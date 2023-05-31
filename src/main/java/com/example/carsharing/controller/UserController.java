@@ -1,10 +1,10 @@
 package com.example.carsharing.controller;
 
-import com.example.carsharing.model.UserRole;
-import com.example.carsharing.model.User;
 import com.example.carsharing.dto.request.UserRequestDto;
-import com.example.carsharing.dto.response.UserResponseDto;
 import com.example.carsharing.dto.request.UserRolesRequestDto;
+import com.example.carsharing.dto.response.UserResponseDto;
+import com.example.carsharing.model.User;
+import com.example.carsharing.model.UserRole;
 import com.example.carsharing.service.RoleService;
 import com.example.carsharing.service.UserService;
 import com.example.carsharing.service.mapper.UserMapper;

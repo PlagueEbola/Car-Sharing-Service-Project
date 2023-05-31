@@ -1,7 +1,7 @@
 package com.example.carsharing.service.mapper;
 
-import com.example.carsharing.model.UserRole;
 import com.example.carsharing.dto.response.RoleResponseDto;
+import com.example.carsharing.model.UserRole;
 import org.springframework.stereotype.Component;
 
 @Component
