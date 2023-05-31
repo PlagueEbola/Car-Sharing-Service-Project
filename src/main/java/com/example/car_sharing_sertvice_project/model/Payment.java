@@ -35,12 +35,12 @@ public class Payment {
     @PositiveOrZero
     private BigDecimal rentalCost;
 
-    private enum PaymentStatus {
+    public enum PaymentStatus {
         PENDING,
         PAID
     }
 
-    private enum PaymentType {
+    public enum PaymentType {
         PAYMENT,
         FINE
     }

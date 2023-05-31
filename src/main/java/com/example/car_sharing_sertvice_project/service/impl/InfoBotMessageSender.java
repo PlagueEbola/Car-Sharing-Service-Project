@@ -10,31 +10,43 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
-@AllArgsConstructor
-public class InfoBotMessageSender {
-    private final CloseableHttpClient httpClient = HttpClients.createDefault();
-    private static final String BOT_ID = "6043533330:AAFOfwvTBnARxFj4a41o7dbbn0RO8bZxejc";
+public class InfoBotMessageSender extends TelegramLongPollingBot {
+    public InfoBotMessageSender() {
+        super("6027715920:AAHCHRX5gOFuG4xV9rHFHRgRmWhIXnRUvd0");
+    }
 
-    public String botMessage(String channelId, String message) {
-        String url = "https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s".formatted(
-                BOT_ID,
-                channelId,
-                URLEncoder.encode(message, StandardCharsets.UTF_8));
-        HttpGet request = new HttpGet(url);
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            return "Success";
-        } catch (IOException e) {
-            throw new RuntimeException("Can't fetch info from url " + url, e);
+    @Override
+    public void onUpdateReceived(Update update) {
+        if (update != null) {
+            sendMessage(update.getMessage().getChatId(), "test");
+        }
+
+
+    }
+
+    @Override
+    public String getBotUsername() {
+        return "CarSharingInfo";
+    }
+
+    public void sendMessage(Long chatId, String text) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText(text);
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException("Can`t send message to user with id ");
         }
     }
 
-    @PostConstruct
-    public void onStartup() {
-        System.out.println("Bot must boot");
-        String channelId = "-1001876562862";
-        String message = "Bot has been booted \n expect more info soon";
-        botMessage(channelId, message);
+    public String getBotToken() {
+        return "6043533330:AAFOfwvTBnARxFj4a41o7dbbn0RO8bZxejc";
     }
 }

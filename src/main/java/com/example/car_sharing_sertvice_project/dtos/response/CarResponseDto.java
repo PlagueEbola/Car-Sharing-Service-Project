@@ -1,4 +1,4 @@
-package com.example.car_sharing_sertvice_project.dtos;
+package com.example.car_sharing_sertvice_project.dtos.response;
 
 import java.math.BigDecimal;
 import lombok.Data;
