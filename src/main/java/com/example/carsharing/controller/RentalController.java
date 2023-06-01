@@ -60,12 +60,12 @@ public class RentalController {
 
     @PostMapping("/{id}/return")
     @Operation(summary = "return rental, car count will be increased and actual return time set")
-    public void returnRental(@PathVariable Long id) {
+    public RentalResponseDto returnRental(@PathVariable Long id) {
         Rental rental = service.getById(id);
         Car car = rental.getCar();
         car.setInventory(car.getInventory() + 1);
         carService.save(car);
         rental.setActualReturnDate(LocalDate.now());
-        service.save(rental);
+        return mapper.toResponseDto(service.save(rental));
     }
 }

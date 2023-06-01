@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import javax.validation.constraints.Positive;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,8 +28,8 @@ public class Car {
     private CarType type;
     @Positive
     private Integer inventory;
-    @NotEmpty
-    private String stripePriceId;
+    @Positive
+    private BigDecimal dailyFee;
 
     public enum CarType {
         SEDAN,
