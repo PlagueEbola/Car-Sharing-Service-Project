@@ -2,13 +2,12 @@ package com.example.carsharing.controller;
 
 import com.example.carsharing.dto.request.PaymentRequestDto;
 import com.example.carsharing.dto.response.PaymentResponseDto;
-import com.example.carsharing.model.Car;
 import com.example.carsharing.model.Payment;
 import com.example.carsharing.model.Rental;
 import com.example.carsharing.service.PaymentService;
 import com.example.carsharing.service.RentalService;
 import com.example.carsharing.service.mapper.PaymentMapper;
-import com.example.carsharing.service.mapper.StripeCarProductService;
+import com.example.carsharing.service.mapper.StripeService;
 import java.time.Period;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,28 +23,32 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Component
 public class PaymentController {
+    private static final float fineMultiplier = 1.1f;
+
     private final PaymentService service;
     private final PaymentMapper mapper;
-    private final StripeCarProductService stripeService;
     private final RentalService rentalService;
+    private final StripeService stripeService;
 
     @PostMapping
     public PaymentResponseDto create(@RequestBody PaymentRequestDto dto) {
         Payment payment = mapper.toModel(dto);
         Rental rental = rentalService.getById(payment.getRental().getId());
+        payment.setRental(rental);
         payment.setType(rental.getActualReturnDate().isAfter(rental.getReturnDate())
                 ? Payment.PaymentType.FINE :
                 Payment.PaymentType.PAYMENT);
         payment.setStatus(Payment.PaymentStatus.PENDING);
         payment = service.save(payment);
-        Car car = rental.getCar();
-        payment.setStripePaymentUrl(
-                stripeService.getPaymentUrl(
-                        car.getStripePriceId(),
-                        (long) Period.between(rental.getRentalDate(),
-                                rental.getActualReturnDate()).getDays(),
-                        payment.getId()));
-        return mapper.toResponseDto(service.save(payment));
+        long numberOfDays = Math.min(1, Period.between(rental.getRentalDate(),
+                rental.getActualReturnDate()).getDays());
+        long totalPrice =
+                (long) (rental.getCar().getDailyFee().longValue()
+                        * (numberOfDays < 1 ? 1 : numberOfDays)
+                        * (payment.getType() == Payment.PaymentType.PAYMENT ? 1 : fineMultiplier));
+        payment.setStripePaymentUrl(stripeService.getPaymentSessionUrl(payment, totalPrice));
+        service.update(payment.getId(), payment);
+        return mapper.toResponseDto(payment);
     }
 
     @GetMapping("/success/{id}")
@@ -54,5 +57,11 @@ public class PaymentController {
         toComplete.setStatus(Payment.PaymentStatus.PAID);
         service.save(toComplete);
         return "Payment Successful!";
+    }
+
+    @GetMapping("/cancel/{id}")
+    public String paymentCancel(@PathVariable Long id) {
+        stripeService.deleteStripeProduct(service.getById(id));
+        return "Payment Canceled!";
     }
 }
