@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class Rental {
     @JoinColumn(name = "car_id")
     @EqualsAndHashCode.Exclude
     private Car car;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @EqualsAndHashCode.Exclude
     private User user;
