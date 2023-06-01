@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class PaymentController {
     private final RentalService rentalService;
 
     @PostMapping
-    public PaymentResponseDto create(PaymentRequestDto dto) {
+    public PaymentResponseDto create(@RequestBody PaymentRequestDto dto) {
         Payment payment = mapper.toModel(dto);
         Rental rental = rentalService.getById(payment.getRental().getId());
         payment.setType(rental.getActualReturnDate().isAfter(rental.getReturnDate())

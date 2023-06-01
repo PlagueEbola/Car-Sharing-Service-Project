@@ -23,7 +23,7 @@ public class RentalMapper {
 
     public RentalResponseDto toResponseDto(Rental rental) {
         RentalResponseDto responseDto = new RentalResponseDto();
-        responseDto.setId(responseDto.getId());
+        responseDto.setId(rental.getId());
         responseDto.setRentalDate(rental.getRentalDate());
         responseDto.setReturnDate(rental.getReturnDate());
         responseDto.setActualReturnDate(rental.getActualReturnDate());
