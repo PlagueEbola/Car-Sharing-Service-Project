@@ -1,10 +1,10 @@
 package com.example.carsharing.controller;
 
-import com.example.carsharing.exception.AuthenticationException;
-import com.example.carsharing.model.User;
 import com.example.carsharing.dto.request.UserLoginRequestDto;
 import com.example.carsharing.dto.request.UserRequestDto;
 import com.example.carsharing.dto.response.UserResponseDto;
+import com.example.carsharing.exception.AuthenticationException;
+import com.example.carsharing.model.User;
 import com.example.carsharing.security.AuthenticationService;
 import com.example.carsharing.security.jwt.JwtTokenProvider;
 import com.example.carsharing.service.mapper.UserMapper;
