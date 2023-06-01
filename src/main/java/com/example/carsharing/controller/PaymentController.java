@@ -8,6 +8,7 @@ import com.example.carsharing.service.PaymentService;
 import com.example.carsharing.service.RentalService;
 import com.example.carsharing.service.mapper.PaymentMapper;
 import com.example.carsharing.service.mapper.StripeService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.time.Period;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ public class PaymentController {
     private final StripeService stripeService;
 
     @PostMapping
+    @Operation(summary = "initiate payment")
     public PaymentResponseDto create(@RequestBody PaymentRequestDto dto) {
         Payment payment = mapper.toModel(dto);
         Rental rental = rentalService.getById(payment.getRental().getId());
@@ -52,6 +54,7 @@ public class PaymentController {
     }
 
     @GetMapping("/success/{id}")
+    @Operation(summary = "will be called on payment success")
     public String paymentSuccess(@PathVariable Long id) {
         Payment toComplete = service.getById(id);
         toComplete.setStatus(Payment.PaymentStatus.PAID);
@@ -60,6 +63,7 @@ public class PaymentController {
     }
 
     @GetMapping("/cancel/{id}")
+    @Operation(summary = "will be called on payment cancellation")
     public String paymentCancel(@PathVariable Long id) {
         stripeService.deleteStripeProduct(service.getById(id));
         return "Payment Canceled!";
