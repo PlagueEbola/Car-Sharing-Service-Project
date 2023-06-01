@@ -1,5 +1,6 @@
 package com.example.carsharing.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,7 +33,10 @@ public class Payment {
     @EqualsAndHashCode.Exclude
     private Rental rental;
     @NotEmpty
+    @Column(length = 1000)
     private String stripePaymentUrl;
+    @NotEmpty
+    private String stripePrice;
 
     public enum PaymentStatus {
         PENDING,
