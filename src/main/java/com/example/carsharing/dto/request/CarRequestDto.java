@@ -7,7 +7,7 @@ import lombok.Data;
 public class CarRequestDto {
     private String model;
     private String brand;
-    private String type;
     private Integer inventory;
+    //private String type;
     private BigDecimal dailyFee;
 }

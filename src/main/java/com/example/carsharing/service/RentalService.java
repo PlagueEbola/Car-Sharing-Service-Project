@@ -5,11 +5,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RentalService {
-    Rental create(LocalDate returnDate, Integer carId, Integer userId);
+    Rental save(Rental rental);
 
-    List<Rental> getByUserIdAndStatus(Integer id, boolean isActive);
+    void update(Long id, Rental rental);
 
-    Rental getById(Integer id);
+    List<Rental> getByUserIdAndStatus(Long id, boolean isActive);
+
+    Rental getById(Long id);
 
     Rental setActualReturnDate(LocalDate actualReturnDate, Rental rental);
 }

@@ -4,8 +4,8 @@ import com.example.carsharing.model.Rental;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RentalRepository extends JpaRepository<Rental, Integer> {
-    List<Rental> findAllByUserIdAndActualReturnDateIsNull(Integer userId);
+public interface RentalRepository extends JpaRepository<Rental, Long> {
+    List<Rental> findAllByUserIdAndActualReturnDateIsNull(Long userId);
 
-    List<Rental> findAllByUserIdAndActualReturnDateIsNotNull(Integer userId);
+    List<Rental> findAllByUserIdAndActualReturnDateIsNotNull(Long userId);
 }

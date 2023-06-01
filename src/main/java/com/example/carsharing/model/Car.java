@@ -4,11 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +22,12 @@ public class Car {
     private Long id;
     private String model;
     private String brand;
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "car_type_id")
     @EqualsAndHashCode.Exclude
-    private CarType type;
-    @PositiveOrZero
+    private CarType type;*/
+    @Positive
     private Integer inventory;
-    @PositiveOrZero
-    private BigDecimal dailyFee;
+    @NotEmpty
+    private String stripePriceId;
 }
