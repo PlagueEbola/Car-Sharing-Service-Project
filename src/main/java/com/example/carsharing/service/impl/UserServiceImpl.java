@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
+    @Override
     public User add(User user) {
         return userRepository.save(user);
     }
@@ -19,11 +20,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findUserByEmail(email);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
     }
 
     @Override
