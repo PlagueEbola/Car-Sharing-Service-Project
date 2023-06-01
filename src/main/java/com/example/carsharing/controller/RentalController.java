@@ -33,7 +33,14 @@ public class RentalController {
     @PostMapping
     @Operation(summary = "initiate rent")
     public RentalResponseDto save(@RequestBody @Valid RentalRequestDto dto) {
-        return mapper.toResponseDto(service.save(mapper.toModel(dto)));
+        Rental rental = mapper.toModel(dto);
+        Car car = carService.getById(rental.getCar().getId());
+        if (car.getInventory() < 1) {
+            throw new RuntimeException("This car is already in rent");
+        }
+        car.setInventory(car.getInventory() - 1);
+        carService.save(car);
+        return mapper.toResponseDto(service.save(rental));
     }
 
     @GetMapping("/{id}")

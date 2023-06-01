@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/register", "/login").permitAll()
+                        auth.requestMatchers("/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/users/me")
                                     .hasAnyRole("CUSTOMER", "MANAGER")
                                 .requestMatchers(HttpMethod.PUT,"/users/me")
