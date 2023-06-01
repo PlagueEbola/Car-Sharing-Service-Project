@@ -15,4 +15,6 @@ public interface RentalService {
     Rental getById(Long id);
 
     Rental setActualReturnDate(LocalDate actualReturnDate, Rental rental);
+
+    void sendMessageToUserEveryDay();
 }
