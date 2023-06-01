@@ -33,7 +33,6 @@ public class CarController {
     public CarResponseDto save(@RequestBody CarRequestDto dto) {
         Car car = mapper.toModel(dto);
         car.setStripePriceId(stripeService.createStripeProduct(dto));
-        car.setInventory(1);
         return mapper.toResponseDto(service.save(car));
     }
 

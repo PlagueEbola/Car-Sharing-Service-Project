@@ -8,6 +8,6 @@ public class CarRequestDto {
     private String model;
     private String brand;
     private Integer inventory;
-    //private String type;
+    private String type;
     private BigDecimal dailyFee;
 }

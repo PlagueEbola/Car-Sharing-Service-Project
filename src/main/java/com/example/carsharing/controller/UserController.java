@@ -57,7 +57,6 @@ public class UserController {
                 .map(roleService::findByRoleName)
                 .collect(Collectors.toSet());
         user.setRoles(newUserRoles);
-
         userService.update(user);
         return userMapper.mapToDto(user);
     }
