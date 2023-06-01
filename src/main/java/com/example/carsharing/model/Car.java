@@ -1,6 +1,8 @@
 package com.example.carsharing.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,12 +24,17 @@ public class Car {
     private Long id;
     private String model;
     private String brand;
-    /*@ManyToOne
-    @JoinColumn(name = "car_type_id")
-    @EqualsAndHashCode.Exclude
-    private CarType type;*/
+    @Enumerated(value = EnumType.STRING)
+    private CarType type;
     @Positive
     private Integer inventory;
     @NotEmpty
     private String stripePriceId;
+
+    public enum CarType {
+        SEDAN,
+        SUV,
+        HATCHBACK,
+        UNIVERSAL
+    }
 }

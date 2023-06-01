@@ -1,8 +1,8 @@
 package com.example.carsharing.config;
 
+import com.example.carsharing.model.User;
 import com.example.carsharing.model.UserRole;
 import com.example.carsharing.model.UserRole.RoleName;
-import com.example.carsharing.model.User;
 import com.example.carsharing.service.RoleService;
 import com.example.carsharing.service.UserService;
 import jakarta.annotation.PostConstruct;
