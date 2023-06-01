@@ -5,11 +5,12 @@ import com.example.carsharing.dto.response.RentalResponseDto;
 import com.example.carsharing.model.Car;
 import com.example.carsharing.model.Rental;
 import com.example.carsharing.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RentalMapper {
     public Rental toModel(RentalRequestDto requestDto) {
         Rental rental = new Rental();
-        rental.setRentalDate(requestDto.getRentalDate());
         User user = new User();
         user.setId(requestDto.getUserId());
         rental.setUser(user);
@@ -17,7 +18,6 @@ public class RentalMapper {
         car.setId(requestDto.getCarId());
         rental.setCar(car);
         rental.setReturnDate(requestDto.getReturnDate());
-        rental.setActualReturnDate(requestDto.getActualReturnDate());
         return rental;
     }
 

@@ -9,8 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.NotEmpty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,8 +31,8 @@ public class Payment {
     @JoinColumn(name = "rental_id")
     @EqualsAndHashCode.Exclude
     private Rental rental;
-    @PositiveOrZero
-    private BigDecimal rentalCost;
+    @NotEmpty
+    private String stripePaymentUrl;
 
     public enum PaymentStatus {
         PENDING,

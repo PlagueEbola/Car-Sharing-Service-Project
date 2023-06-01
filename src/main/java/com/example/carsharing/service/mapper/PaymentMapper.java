@@ -4,16 +4,15 @@ import com.example.carsharing.dto.request.PaymentRequestDto;
 import com.example.carsharing.dto.response.PaymentResponseDto;
 import com.example.carsharing.model.Payment;
 import com.example.carsharing.model.Rental;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PaymentMapper {
     public Payment toModel(PaymentRequestDto requestDto) {
         Payment payment = new Payment();
         Rental rental = new Rental();
         rental.setId(requestDto.getRentalId());
         payment.setRental(rental);
-        payment.setRentalCost(requestDto.getRentalCost());
-        payment.setType(Payment.PaymentType.valueOf(requestDto.getType()));
-        payment.setStatus(Payment.PaymentStatus.valueOf(requestDto.getStatus()));
         return payment;
     }
 
@@ -23,7 +22,7 @@ public class PaymentMapper {
         responseDto.setType(payment.getType().name());
         responseDto.setStatus(payment.getStatus().name());
         responseDto.setRentalId(payment.getRental().getId());
-        responseDto.setRentalCost(payment.getRentalCost());
+        responseDto.setStripePaymentUrl(payment.getStripePaymentUrl());
         return responseDto;
     }
 }

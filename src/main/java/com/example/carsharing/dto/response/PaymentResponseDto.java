@@ -1,6 +1,5 @@
 package com.example.carsharing.dto.response;
 
-import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
@@ -9,5 +8,5 @@ public class PaymentResponseDto {
     private String status;
     private String type;
     private Long rentalId;
-    private BigDecimal rentalCost;
+    private String stripePaymentUrl;
 }

@@ -13,6 +13,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    public User getById(Long id) {
+        return userRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Can't find user by id " + id));
+
     public User add(User user) {
         return userRepository.save(user);
     }
@@ -22,6 +26,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public void update(Long id, User user) {
+        user.setId(id);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+      
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);

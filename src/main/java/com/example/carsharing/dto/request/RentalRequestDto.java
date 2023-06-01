@@ -1,13 +1,13 @@
 package com.example.carsharing.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import lombok.Data;
 
 @Data
 public class RentalRequestDto {
-    private LocalDate rentalDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate returnDate;
-    private LocalDate actualReturnDate;
     private Long carId;
     private Long userId;
 }
