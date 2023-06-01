@@ -8,6 +8,7 @@ import com.example.carsharing.model.User;
 import com.example.carsharing.security.AuthenticationService;
 import com.example.carsharing.security.jwt.JwtTokenProvider;
 import com.example.carsharing.service.mapper.UserMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
+    @Operation(summary = "register a user")
     public UserResponseDto register(@RequestBody @Valid UserRequestDto requestDto) {
         User user = authenticationService.register(
                 requestDto.getEmail(),

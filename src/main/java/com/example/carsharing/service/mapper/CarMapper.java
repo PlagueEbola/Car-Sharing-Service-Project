@@ -14,16 +14,14 @@ public class CarMapper {
         car.setModel(requestDto.getModel());
         car.setBrand(requestDto.getBrand());
         car.setInventory(requestDto.getInventory());
-        /*CarType type = new CarType();
-        type.setTypeName(CarType.TypeName.valueOf(requestDto.getType()));
-        car.setType(type);*/
+        car.setType(Car.CarType.valueOf(requestDto.getType()));
         return car;
     }
 
     public CarResponseDto toResponseDto(Car car) {
         CarResponseDto responseDto = new CarResponseDto();
         responseDto.setId(car.getId());
-        //responseDto.setType(car.getType().getTypeName().name());
+        responseDto.setType(car.getType().name());
         try {
             responseDto.setDailyFee(Price.retrieve(car.getStripePriceId()).getUnitAmountDecimal());
         } catch (StripeException e) {

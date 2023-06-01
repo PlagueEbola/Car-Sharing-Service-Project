@@ -5,5 +5,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
-  public Optional<Car> findByBrandAndModel(String brand, String model);
+    Optional<Car> findByBrandAndModel(String brand, String model);
 }
