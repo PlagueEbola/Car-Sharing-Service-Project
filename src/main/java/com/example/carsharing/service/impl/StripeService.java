@@ -19,11 +19,11 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class StripeService {
-    private final RentalService rentalService;
-    private final PaymentService paymentService;
-
     private static final String SUCCESS_ENDPOINT = "http://localhost:8080/payments/success/";
     private static final String CANCEL_ENDPOINT = "http://localhost:8080/payments/cancel/";
+
+    private final RentalService rentalService;
+    private final PaymentService paymentService;
 
     static {
         Stripe.apiKey = "sk_test_51NDSqsJH4Qcr0ApldF1YRKWQqxkYbfT4fMOzIcY"
