@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rentals")
 @AllArgsConstructor
-@Component
 public class RentalController {
     private final RentalService service;
     private final CarService carService;
@@ -51,8 +49,9 @@ public class RentalController {
 
     @GetMapping
     @Operation(summary = "get all user's rentals")
-    public List<RentalResponseDto> getByUser(@RequestParam(value = "user-id") Long userId) {
-        return service.getByUserIdAndStatus(userId, true)
+    public List<RentalResponseDto> getByUser(@RequestParam(value = "user_id") Long userId,
+                                             @RequestParam(value = "is_active") Boolean isActive) {
+        return service.getByUserIdAndStatus(userId, isActive)
                 .stream()
                 .map(mapper::toResponseDto)
                 .toList();

@@ -25,7 +25,7 @@ public class Rental {
     private LocalDate rentalDate;
     private LocalDate returnDate;
     private LocalDate actualReturnDate;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "car_id")
     @EqualsAndHashCode.Exclude
     private Car car;

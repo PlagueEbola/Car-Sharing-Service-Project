@@ -20,14 +20,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment save(Payment payment) {
-        return paymentRepository.save(payment);
+    public List<Payment> getByUserId(Long userId) {
+        return paymentRepository.findAllByRentalUserId(userId);
     }
 
     @Override
-    public void update(Long id, Payment payment) {
-        payment.setId(id);
-        paymentRepository.save(payment);
+    public Payment save(Payment payment) {
+        return paymentRepository.save(payment);
     }
 
     @Override

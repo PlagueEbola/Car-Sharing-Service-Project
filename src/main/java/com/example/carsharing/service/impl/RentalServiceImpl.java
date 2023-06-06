@@ -24,12 +24,6 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public void update(Long id, Rental rental) {
-        rental.setId(id);
-        rentalRepository.save(rental);
-    }
-
-    @Override
     public List<Rental> getByUserIdAndStatus(Long id, boolean isActive) {
         if (isActive) {
             return rentalRepository.findAllByUserIdAndActualReturnDateIsNotNull(id);

@@ -7,24 +7,25 @@ import com.example.carsharing.model.Rental;
 import com.example.carsharing.service.PaymentService;
 import com.example.carsharing.service.RentalService;
 import com.example.carsharing.service.mapper.PaymentMapper;
-import com.example.carsharing.service.mapper.StripeService;
+import com.example.carsharing.service.impl.StripeService;
 import io.swagger.v3.oas.annotations.Operation;
+import java.math.BigDecimal;
 import java.time.Period;
+import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/payments")
 @AllArgsConstructor
-@Component
 public class PaymentController {
-    private static final float fineMultiplier = 1.1f;
+    private static final float FINE_MULTIPLIER = 1.1f;
 
     private final PaymentService service;
     private final PaymentMapper mapper;
@@ -44,13 +45,25 @@ public class PaymentController {
         payment = service.save(payment);
         long numberOfDays = Math.min(1, Period.between(rental.getRentalDate(),
                 rental.getActualReturnDate()).getDays());
-        long totalPrice =
-                (long) (rental.getCar().getDailyFee().longValue()
+        payment.setPrice(BigDecimal.valueOf(
+                (long) ((rental.getCar().getDailyFee().longValue()
                         * (numberOfDays < 1 ? 1 : numberOfDays)
-                        * (payment.getType() == Payment.PaymentType.PAYMENT ? 1 : fineMultiplier));
-        payment.setStripePaymentUrl(stripeService.getPaymentSessionUrl(payment, totalPrice));
-        service.update(payment.getId(), payment);
+                        * (payment.getType() == Payment.PaymentType.PAYMENT ? 1 : FINE_MULTIPLIER))
+                        / 100)
+        ));
+        payment.setStripePaymentUrl(stripeService.getPaymentSessionUrl(payment,
+                payment.getPrice().longValue() * 100));
+        payment = service.save(payment);
         return mapper.toResponseDto(payment);
+    }
+
+    @GetMapping
+    @Operation(summary = "gets user's payment history")
+    public List<PaymentResponseDto> getPaymentHistory(@RequestParam("user_id") Long id) {
+        return service.getByUserId(id)
+                .stream()
+                .map(mapper::toResponseDto)
+                .toList();
     }
 
     @GetMapping("/success/{id}")

@@ -1,4 +1,4 @@
-package com.example.carsharing.service.mapper;
+package com.example.carsharing.service.impl;
 
 import com.example.carsharing.model.Car;
 import com.example.carsharing.model.Payment;
@@ -21,6 +21,9 @@ import org.springframework.stereotype.Component;
 public class StripeService {
     private final RentalService rentalService;
     private final PaymentService paymentService;
+
+    private static final String SUCCESS_ENDPOINT = "http://localhost:8080/payments/success/";
+    private static final String CANCEL_ENDPOINT = "http://localhost:8080/payments/cancel/";
 
     static {
         Stripe.apiKey = "sk_test_51NDSqsJH4Qcr0ApldF1YRKWQqxkYbfT4fMOzIcY"
@@ -70,16 +73,16 @@ public class StripeService {
                                             .setQuantity(1L)
                                             .build()
                             )
-                            .setSuccessUrl("http://localhost:8080/payments/success/"
+                            .setSuccessUrl(SUCCESS_ENDPOINT
                                     + payment.getId())
-                            .setCancelUrl("http://localhost:8080/payments/cancel/"
+                            .setCancelUrl(CANCEL_ENDPOINT
                                     + payment.getId())
                             .setMode(SessionCreateParams.Mode.PAYMENT)
                             .build();
             Session session = Session.create(sessionCreateParams);
             return session.getUrl();
         } catch (StripeException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Unable to create a Stripe session ", e);
         }
     }
 }

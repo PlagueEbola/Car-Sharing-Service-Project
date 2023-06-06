@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,11 +32,10 @@ public class Payment {
     @JoinColumn(name = "rental_id")
     @EqualsAndHashCode.Exclude
     private Rental rental;
-    @NotEmpty
     @Column(length = 1000)
     private String stripePaymentUrl;
-    @NotEmpty
     private String stripePrice;
+    private BigDecimal price;
 
     public enum PaymentStatus {
         PENDING,
