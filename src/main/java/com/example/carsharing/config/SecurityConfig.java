@@ -40,13 +40,24 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/**").permitAll()
-                                .requestMatchers(HttpMethod.GET,"/users/me")
-                                    .hasAnyRole("CUSTOMER", "MANAGER")
-                                .requestMatchers(HttpMethod.PUT,"/users/me")
-                                    .hasAnyRole("CUSTOMER", "MANAGER")
-                                .requestMatchers(HttpMethod.PUT,"/users/{id}/role")
-                                    .hasRole("MANAGER")
+                        auth.requestMatchers("/register", "/login",
+                                        "/swagger-ui/**", "/v3/api-docs/**",
+                                        "/payments/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/cars/**").permitAll()
+                                .requestMatchers("/users/me")
+                                .hasAnyRole("CUSTOMER", "MANAGER")
+                                .requestMatchers(HttpMethod.GET, "/rentals/**")
+                                .hasAnyRole("CUSTOMER", "MANAGER")
+                                .requestMatchers(HttpMethod.PUT,
+                                        "/users/{id}/role",
+                                        "/cars/{id}")
+                                .hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.DELETE, "/cars/{id}")
+                                .hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.POST,
+                                        "/cars",
+                                        "/rentals/**")
+                                .hasRole("MANAGER")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->

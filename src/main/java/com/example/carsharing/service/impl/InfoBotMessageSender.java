@@ -15,6 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class InfoBotMessageSender extends TelegramLongPollingBot {
     @Autowired
     private UserService userService;
+
     public InfoBotMessageSender() {
         super("6027715920:AAHCHRX5gOFuG4xV9rHFHRgRmWhIXnRUvd0");
     }
