@@ -10,9 +10,5 @@ public interface CarService {
 
     void deleteById(Long id);
 
-    void update(Long id, Car car);
-
     List<Car> getAll();
-
-    boolean carExist(Car car);
 }

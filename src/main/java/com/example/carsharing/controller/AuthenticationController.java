@@ -27,6 +27,7 @@ public class AuthenticationController {
     private final UserMapper userMapper;
 
     @PostMapping("/login")
+    @Operation(summary = "login as an existing user")
     public ResponseEntity<?> login(@RequestBody UserLoginRequestDto userLoginDto)
             throws AuthenticationException {
         User user = authenticationService.login(userLoginDto.getLogin(),

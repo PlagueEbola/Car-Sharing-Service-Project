@@ -23,6 +23,7 @@ public class PaymentMapper {
         responseDto.setStatus(payment.getStatus().name());
         responseDto.setRentalId(payment.getRental().getId());
         responseDto.setStripePaymentUrl(payment.getStripePaymentUrl());
+        responseDto.setPrice(payment.getPrice());
         return responseDto;
     }
 }

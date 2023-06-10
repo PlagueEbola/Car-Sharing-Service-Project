@@ -6,9 +6,9 @@ import java.util.List;
 public interface PaymentService {
     Payment getById(Long id);
 
-    Payment save(Payment payment);
+    List<Payment> getByUserId(Long userId);
 
-    void update(Long id, Payment payment);
+    Payment save(Payment payment);
 
     void deleteById(Long id);
 

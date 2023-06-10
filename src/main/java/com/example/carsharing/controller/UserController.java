@@ -8,6 +8,7 @@ import com.example.carsharing.model.UserRole;
 import com.example.carsharing.service.RoleService;
 import com.example.carsharing.service.UserService;
 import com.example.carsharing.service.mapper.UserMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +32,14 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping("/me")
+    @Operation(summary = "get currently logged in user")
     public UserResponseDto get(Authentication auth) {
         User user = getAuthenticated(auth);
         return userMapper.mapToDto(user);
     }
 
     @PutMapping("/me")
+    @Operation(summary = "update logged in user's data")
     public UserResponseDto update(Authentication auth, @RequestBody UserRequestDto requestDto) {
         User user = userMapper.mapToModel(requestDto);
         User authenticatedUser = getAuthenticated(auth);
@@ -48,6 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}/role")
+    @Operation(summary = "update roles for a specific user")
     public UserResponseDto updateRoles(
             @PathVariable Long id,
             @RequestBody UserRolesRequestDto rolesRequest) {

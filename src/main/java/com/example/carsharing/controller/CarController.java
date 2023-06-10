@@ -5,11 +5,9 @@ import com.example.carsharing.dto.response.CarResponseDto;
 import com.example.carsharing.model.Car;
 import com.example.carsharing.service.CarService;
 import com.example.carsharing.service.mapper.CarMapper;
-import com.example.carsharing.service.mapper.StripeService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cars")
 @AllArgsConstructor
-@Component
 public class CarController {
     private final CarService service;
     private final CarMapper mapper;
-    private final StripeService stripeService;
 
     @PostMapping
-    @Operation(summary = "Adds a car to local db and to Stripe db")
+    @Operation(summary = "Adds a car to local db")
     public CarResponseDto save(@RequestBody CarRequestDto dto) {
         return mapper.toResponseDto(service.save(mapper.toModel(dto)));
     }
@@ -47,15 +43,17 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Updates a car together with Stripe db")
+    @Operation(summary = "Updates a car in db")
     public void update(@PathVariable Long id,
                        @RequestBody
                        CarRequestDto dto) {
-        service.update(id, mapper.toModel(dto));
+        Car car = mapper.toModel(dto);
+        car.setId(id);
+        service.save(car);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes a car from local and Stripe db")
+    @Operation(summary = "Deletes a car from local")
     public void delete(@PathVariable Long id) {
         service.deleteById(id);
     }
