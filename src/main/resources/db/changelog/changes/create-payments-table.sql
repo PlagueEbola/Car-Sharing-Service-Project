@@ -5,8 +5,10 @@ CREATE TABLE IF NOT EXISTS payments (
     id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     status VARCHAR(255),
     type VARCHAR(255),
-    rental_id BIGINT REFERENCES `rentails` (`id`),
-    rental_cost BIGINT
-    ) ENGINE=InnoDB;
+    rental_id BIGINT REFERENCES rentals (id),
+    stripe_payment_url VARCHAR(1000),
+    stripe_price VARCHAR(255),
+    price DECIMAL(38, 2)
+) ENGINE=InnoDB;
 
-INSERT INTO payments VALUES(1, 'PENDING', 'PAYMENT', 1, 300);
+--rollback DROP TABLE payments;

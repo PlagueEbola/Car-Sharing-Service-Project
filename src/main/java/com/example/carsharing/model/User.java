@@ -25,9 +25,9 @@ public class User {
     private Long id;
     @Column(unique = true)
     private String email;
-    @Column(name = "first_name")
+    @Column(name = "firstname")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "lastname")
     private String lastName;
     @Column(name = "password")
     private String password;
