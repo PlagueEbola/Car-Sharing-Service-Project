@@ -19,7 +19,7 @@ public class RentalServiceImpl implements RentalService {
     @Override
     public Rental save(Rental rental) {
         rental.setRentalDate(LocalDate.now());
-        botMessageSender.sendMassageToUserAboutCreateRental(rental);
+        botMessageSender.sendMessageToUserAboutCreateRental(rental);
         return rentalRepository.save(rental);
     }
 
@@ -47,6 +47,6 @@ public class RentalServiceImpl implements RentalService {
     @Scheduled(cron = "0 0 12 * * ?")
     public void sendMessageToUserEveryDay() {
         List<Rental> all = rentalRepository.findAll();
-        all.forEach(botMessageSender::sendMassageToUserAboutRental);
+        all.forEach(botMessageSender::sendMessageToUserAboutRental);
     }
 }

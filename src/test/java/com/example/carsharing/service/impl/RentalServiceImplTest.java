@@ -26,7 +26,7 @@ class RentalServiceImplTest {
     @Test
     void save() {
         Rental rental = new Rental();
-        Mockito.doNothing().when(botMessageSender).sendMassageToUserAboutCreateRental(any());
+        Mockito.doNothing().when(botMessageSender).sendMessageToUserAboutCreateRental(any());
         rentalService.save(rental);
         Assertions.assertEquals(LocalDate.now(), rental.getRentalDate());
     }
