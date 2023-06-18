@@ -32,8 +32,8 @@ public class CarController {
 
     @GetMapping
     @Operation(summary = "Get all cars from local db")
-    public List<Car> getAll() {
-        return service.getAll();
+    public List<CarResponseDto> getAll() {
+        return service.getAll().stream().map(mapper::toResponseDto).toList();
     }
 
     @GetMapping("/{id}")
