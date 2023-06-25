@@ -2,7 +2,6 @@ package com.example.carsharing.controller;
 
 import com.example.carsharing.dto.request.CarRequestDto;
 import com.example.carsharing.dto.response.CarResponseDto;
-import com.example.carsharing.model.Car;
 import com.example.carsharing.service.CarService;
 import com.example.carsharing.service.mapper.CarMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,13 +42,9 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Updates a car in db")
-    public void update(@PathVariable Long id,
-                       @RequestBody
-                       CarRequestDto dto) {
-        Car car = mapper.toModel(dto);
-        car.setId(id);
-        service.save(car);
+    @Operation(summary = "Updates the existing car in the db")
+    public CarResponseDto update(@PathVariable Long id, @RequestBody CarRequestDto dto) {
+        return mapper.toResponseDto(service.updateById(id, mapper.toModel(dto)));
     }
 
     @DeleteMapping("/{id}")
