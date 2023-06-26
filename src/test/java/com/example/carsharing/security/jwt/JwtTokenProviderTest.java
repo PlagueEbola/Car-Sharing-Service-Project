@@ -41,7 +41,7 @@ class JwtTokenProviderTest {
     }
 
     @Test
-    void createToken_Ok() {
+    void createToken() {
         Claims claims = Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
@@ -54,7 +54,7 @@ class JwtTokenProviderTest {
     }
 
     @Test
-    void getAuthentication_Ok() {
+    void getAuthentication() {
         User.UserBuilder builder;
         builder = User.withUsername(EMAIL);
         builder.password(PASSWORD);
@@ -76,13 +76,13 @@ class JwtTokenProviderTest {
     }
 
     @Test
-    void getUsername_Ok() {
+    void getUsername() {
         String actualUsername = jwtTokenProvider.getUsername(token);
         Assertions.assertEquals(EMAIL, actualUsername);
     }
 
     @Test
-    void resolveToken_Ok() {
+    void resolveToken() {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         Mockito.when(request.getHeader("Authorization")).thenReturn("Bearer valid-token");
 
@@ -95,7 +95,7 @@ class JwtTokenProviderTest {
     }
 
     @Test
-    void validateToken_Ok() {
+    void validateToken_() {
         Assertions.assertTrue(jwtTokenProvider.validateToken(token));
     }
 }

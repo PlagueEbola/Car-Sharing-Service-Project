@@ -35,7 +35,7 @@ class AuthenticationServiceImplTest {
     }
 
     @Test
-    void register_Ok() {
+    void register() {
         UserRole role = new UserRole();
         role.setId(ROLE_ID);
         role.setRoleName(UserRole.RoleName.CUSTOMER);
@@ -61,7 +61,7 @@ class AuthenticationServiceImplTest {
     }
 
     @Test
-    void login_Ok() {
+    void loginWithValidCredentials() {
         User user = new User();
         user.setId(USER_ID);
         user.setEmail(EMAIL);
@@ -87,7 +87,7 @@ class AuthenticationServiceImplTest {
     }
 
     @Test
-    void login_InvalidCredentials_NotOk() {
+    void loginWithInvalidCredentials() {
         Mockito.when(userService.findByEmail(EMAIL)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(AuthenticationException.class, () ->
