@@ -32,7 +32,7 @@ public class Payment {
     @JoinColumn(name = "rental_id")
     @EqualsAndHashCode.Exclude
     private Rental rental;
-    @Column(length = 1000)
+    @Column(name = "stripe_payment_url", length = 1000)
     private String stripePaymentUrl;
     private String stripePrice;
     private BigDecimal price;

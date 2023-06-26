@@ -2,9 +2,8 @@
 --changeset andrew:create-user-roles-table splitStatements:true endDelimiter:;
 
 CREATE TABLE IF NOT EXISTS user_roles (
-    id BIGINT AUTO_INCREMENT primary key NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     role_name VARCHAR(255)
-    ) ENGINE=InnoDB;
+) ENGINE=InnoDB;
 
-INSERT INTO user_roles VALUES(1, 'CUSTOMER');
-INSERT INTO user_roles VALUES(2, 'MANAGER');
+--rollback DROP TABLE user_roles;
