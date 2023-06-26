@@ -39,7 +39,7 @@ class CarServiceImplTest {
     }
 
     @Test
-    public void testUpdateById_NonExistingCarId_ValidCar_ThrowsNoSuchElementException() {
+    public void updateByNonExistingCarId_ThrowsNoSuchElementException() {
         Car carToSave = new Car("Camry", "Toyota", Car.CarType.SEDAN, 1, BigDecimal.valueOf(50));
         Long carId = 1L;
         Mockito.when(carRepository.existsById(carId)).thenReturn(false);
