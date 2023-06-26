@@ -4,7 +4,8 @@ import com.example.carsharing.model.Rental;
 import com.example.carsharing.model.User;
 import com.example.carsharing.service.UserService;
 import java.time.LocalDate;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,27 +13,38 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
+@RequiredArgsConstructor
 public class InfoBotMessageSender extends TelegramLongPollingBot {
-    @Autowired
-    private UserService userService;
-
-    public InfoBotMessageSender() {
-        super("6027715920:AAHCHRX5gOFuG4xV9rHFHRgRmWhIXnRUvd0");
-    }
+    private final UserService userService;
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (update != null) {
-            sendMessage(update.getMessage().getChatId(), "Please write you email");
-        } else if (update.getMessage().getText().contains("@gmail.com")) {
-            updateUserWhitChatId(update.getMessage().getText(), update.getMessage().getChatId());
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            String message = update.getMessage().getText();
+            Long telegramChatId = update.getMessage().getChatId();
+            if (message.equals("/start")) {
+                sendMessage(telegramChatId, "Hello, "
+                        + update.getMessage().getChat().getUserName()
+                        + ". Please enter your email address to receive notifications. ");
+                return;
+            } else if (message.contains("@")) {
+                updateUserWhitChatId(message, telegramChatId);
+                return;
+            }
         }
     }
 
     public void updateUserWhitChatId(String email, Long chatId) {
-        User userByEmail = userService.findByEmail(email).get();
-        userByEmail.setTelegramChatId(chatId);
-        userService.update(userByEmail);
+        Optional<User> optionalUserByEmail = userService.findByEmail(email);
+        if (optionalUserByEmail.isPresent()) {
+            User userByEmail = optionalUserByEmail.get();
+            userByEmail.setTelegramChatId(chatId);
+            userService.update(userByEmail);
+            sendMessage(chatId, "Your email has been received, expect a notification.");
+        } else {
+            sendMessage(chatId, "User with this email was not found, try again.");
+        }
+
     }
 
     public void sendMassageToUserAboutCreateRental(Rental rental) {
@@ -77,12 +89,12 @@ public class InfoBotMessageSender extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "CarSharingInfo";
+        return "CarSharingTetsBot";
     }
 
     public void sendMessage(Long chatId, String text) {
         SendMessage message = new SendMessage();
-        message.setChatId(chatId);
+        message.setChatId(String.valueOf(chatId));
         message.setText(text);
         try {
             execute(message);
@@ -92,6 +104,6 @@ public class InfoBotMessageSender extends TelegramLongPollingBot {
     }
 
     public String getBotToken() {
-        return "6043533330:AAFOfwvTBnARxFj4a41o7dbbn0RO8bZxejc";
+        return "6165726109:AAHvih1gxPsSLDsplGlaomMBewR1S-OmsFs";
     }
 }

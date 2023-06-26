@@ -44,7 +44,7 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "*/10 * * * * *")
     public void sendMessageToUserEveryDay() {
         List<Rental> all = rentalRepository.findAll();
         all.forEach(botMessageSender::sendMassageToUserAboutRental);
