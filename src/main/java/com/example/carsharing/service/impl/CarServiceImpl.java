@@ -23,7 +23,16 @@ public class CarServiceImpl implements CarService {
     public Car save(Car car) {
         return carRepository.save(car);
     }
-  
+
+    @Override
+    public Car updateById(Long id, Car car) {
+        if (!carRepository.existsById(id)) {
+            throw new NoSuchElementException("Can't find car by id " + id);
+        }
+        car.setId(id);
+        return carRepository.save(car);
+    }
+
     @Override
     public void deleteById(Long id) {
         carRepository.deleteById(id);

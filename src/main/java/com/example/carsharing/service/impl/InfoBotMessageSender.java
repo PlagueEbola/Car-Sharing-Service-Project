@@ -47,13 +47,13 @@ public class InfoBotMessageSender extends TelegramLongPollingBot {
 
     }
 
-    public void sendMassageToUserAboutCreateRental(Rental rental) {
+    public void sendMessageToUserAboutCreateRental(Rental rental) {
         String testMessage = createMessageToUserAboutCreateRental(rental);
         Long chatId = rental.getUser().getTelegramChatId();
         sendMessage(chatId, testMessage);
     }
 
-    public void sendMassageToUserAboutRental(Rental rental) {
+    public void sendMessageToUserAboutRental(Rental rental) {
         if (rental.getReturnDate().isBefore(LocalDate.now())) {
             sendMessage(rental.getUser().getTelegramChatId(),
                     createMessageToUserAboutOverdueRental(rental));

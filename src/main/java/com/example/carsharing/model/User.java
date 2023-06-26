@@ -38,4 +38,29 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<UserRole> roles;
     private Long telegramChatId;
+
+    public User() {
+    }
+
+    public User(Long id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(
+            Long id,
+            String email,
+            String firstName,
+            String lastName,
+            String password,
+            Set<UserRole> roles
+    ) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.roles = roles;
+    }
 }

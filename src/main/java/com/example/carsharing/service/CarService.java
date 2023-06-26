@@ -8,6 +8,8 @@ public interface CarService {
 
     Car save(Car car);
 
+    Car updateById(Long id, Car car);
+
     void deleteById(Long id);
 
     List<Car> getAll();

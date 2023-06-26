@@ -31,6 +31,33 @@ public class Car {
     @Positive
     private BigDecimal dailyFee;
 
+    public Car() {
+    }
+
+    public Car(
+            Long id,
+            String model,
+            String brand,
+            CarType type,
+            Integer inventory,
+            BigDecimal dailyFee
+    ) {
+        this.id = id;
+        this.model = model;
+        this.brand = brand;
+        this.type = type;
+        this.inventory = inventory;
+        this.dailyFee = dailyFee;
+    }
+
+    public Car(String model, String brand, CarType type, Integer inventory, BigDecimal dailyFee) {
+        this.model = model;
+        this.brand = brand;
+        this.type = type;
+        this.inventory = inventory;
+        this.dailyFee = dailyFee;
+    }
+
     public enum CarType {
         SEDAN,
         SUV,
