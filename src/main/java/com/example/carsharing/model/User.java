@@ -48,7 +48,14 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String email, String firstName, String lastName, String password, Set<UserRole> roles) {
+    public User(
+            Long id,
+            String email,
+            String firstName,
+            String lastName,
+            String password,
+            Set<UserRole> roles
+    ) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;

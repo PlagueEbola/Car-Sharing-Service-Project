@@ -34,7 +34,14 @@ public class Car {
     public Car() {
     }
 
-    public Car(Long id, String model, String brand, CarType type, Integer inventory, BigDecimal dailyFee) {
+    public Car(
+            Long id,
+            String model,
+            String brand,
+            CarType type,
+            Integer inventory,
+            BigDecimal dailyFee
+    ) {
         this.id = id;
         this.model = model;
         this.brand = brand;
