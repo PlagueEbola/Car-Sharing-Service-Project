@@ -13,6 +13,6 @@ INSERT INTO users_roles(user_id, role_id) VALUES(2, 2);
 
 INSERT INTO cars(id, model, brand, type, inventory, daily_fee) VALUES(1, 'C5', 'Citroen', 'UNIVERSAL', 4, 29.9);
 
-INSERT INTO payments(id, status, type, rental_id, stripe_price, price) VALUES(1, 'PENDING', 'PAYMENT', 1, "100", 100);
-
 INSERT INTO rentals(id, rental_date, return_date, actual_return_date, car_id, user_id) VALUES(1, '2023-06-06', '2023-06-07', '2023-06-07', 1, 1);
+
+INSERT INTO payments(id, status, type, rental_id, stripe_price, price) VALUES(1, 'PENDING', 'PAYMENT', 1, "100", 100);
