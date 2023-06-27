@@ -1,8 +1,8 @@
 # Car-Sharing-Service-Project
 <img src="https://cdn.dribbble.com/users/508588/screenshots/14845034/media/18078f287ce75878d1858ab43d7607e2.jpg?compress=1&resize=400x300">
 <h1>Car Sharing</h1>
-This project is simulating of car sharing where we can add, delete cars, users, and assign user to 
-car and realised and login logic which don`t allow unregistered users change or see some details.
+This project is a simulation of car sharing where we can add, and delete cars, and users, and assign users to 
+car and realized and login logic which doesn`t allow unregistered users to change or see some details.
 <h2>Features</h2>
 <ul>
 <li>Authentication</li>
@@ -15,16 +15,17 @@ car and realised and login logic which don`t allow unregistered users change or 
 </ul>
 <h2>Getting Started</h2>
 <ul>
-<li>Firstly you should copy repository to your local machine</li>
+<li>Firstly you should copy the repository to your local machine</li>
 <li>Replace values in application.properties and liquibase.properties to your data</li>
 <li>Then run Mysql server</li>
 <li>Run the priject on your machine</li>
+<li>Ther will be an account injected by default with credentials <br>   (login: bob@gmail.com, password: 123) <br>   (login: alice@gmail.com, password: 12345)</li>
 </ul>
 <h2>Endpoints</h2>
 <ul>
 <li>Authentication Controller</li>
 <ul>
-<li>POST /register - register new user (non-auth access);</li>
+<li> 1POST /register - register a new user (non-auth access);</li>
 <li>POST /login - login user;</li>
 </ul>
 <li>Car Controller</li>
@@ -39,7 +40,7 @@ car and realised and login logic which don`t allow unregistered users change or 
 <ul>
 <li>POST: /payments - create payment;</li>
 <li>GET: /payments/success/{id} - set status PAID;</li>
-<li>GET: /payments/cancell/{id} - cancell payment;</li>
+<li>GET: /payments/cancel/{id} - cancel payment;</li>
 </ul>
 <li>Rental Controller</li>
 <ul>
@@ -59,13 +60,13 @@ car and realised and login logic which don`t allow unregistered users change or 
 <ul>
 <li>controller - Rest controllers</li>
 <li>dto - Data transfer objects for request and response</li>
-<li>exception - Classes which contains some costom exceptions</li>
-<li>lib - Classes whish contains validation of User</li>
+<li>exception - Classes which contain some custom exceptions</li>
+<li>lib - Classes which contain validation of User</li>
 <li>model - Classes which describe objects as Car, Payment, Rental, User, UserRole</li>
-<li>repository - Classes which contains methods which work whith repository</li>
+<li>repository - Classes which contain methods that work with repository</li>
 <li>security - Contains JWT Token and AuthenticationSeervice</li>
 <li>service - Provides business logic, includes mapper-s for dto</li>
-<li>resources - Contains scripts, database changelog and properties</li>
+<li>resources - Contains scripts, database changelog, and properties</li>
 </ul>
 <h2>Used Technologies</h2>
 <ul>
