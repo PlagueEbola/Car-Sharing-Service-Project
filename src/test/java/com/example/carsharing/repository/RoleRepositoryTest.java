@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -35,11 +34,12 @@ class RoleRepositoryTest {
     private RoleRepository roleRepository;
 
     @Test
-    @Sql("/scripts/init_roles.sql")
     void findByRoleNameTest() {
         Optional<UserRole> actual = roleRepository.findByRoleName(UserRole.RoleName.CUSTOMER);
+        Assertions.assertEquals(1L, actual.get().getId());
         Assertions.assertEquals("CUSTOMER", actual.get().getRoleName().name());
         actual = roleRepository.findByRoleName(UserRole.RoleName.MANAGER);
+        Assertions.assertEquals(2L, actual.get().getId());
         Assertions.assertEquals("MANAGER", actual.get().getRoleName().name());
     }
 }
