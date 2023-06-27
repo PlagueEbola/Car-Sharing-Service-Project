@@ -1,7 +1,7 @@
 # Car-Sharing-Service-Project
 <img src="https://cdn.dribbble.com/users/508588/screenshots/14845034/media/18078f287ce75878d1858ab43d7607e2.jpg?compress=1&resize=400x300">
 Car Sharing
-A simulation of car sharing where we can add and delete cars which can be assignedto a user. It features an authentication and authorization system to allow or deny access to different features to users with appropriate rights.  And with the help of Stripe, payments are made easier. It also utilizes Telegram bots to send notifications to users.
+A simulation of car sharing where we can add and delete cars that can be assigned to a user. It features an authentication and authorization system to allow or deny access to different features to users with appropriate rights.  And with the help of Stripe, payments are made more accessible. It also utilizes Telegram bots to send notifications to users.
 
 # Features
 
@@ -40,7 +40,7 @@ A simulation of car sharing where we can add and delete cars which can be assign
 
 * `Car Controller`
   - `POST`: `/cars` - add new car;
-  - `GET`: `/cars` - get list of cars;
+  - `GET`: `/cars` - get a list of cars;
   - `GET`: `/cars/{id}` - get var by id;
   - `PUT`: `/cars/{id}` - update car by id;
   - `DELETE`: `/cars/{id}` - delete car by id;
@@ -52,7 +52,7 @@ A simulation of car sharing where we can add and delete cars which can be assign
 
 * `Rental Controller`
   - `POST`: `/rentals` - add a new rental;
-  - `GET`: `/rentals` - get list of user rentals;
+  - `GET`: `/rentals` - get a list of user rentals;
   - `GET`: `/rentals/{id}` - get rental by id;
   - `POST`: `/rentals/{id}/return` - end of rental;
 
@@ -66,10 +66,10 @@ A simulation of car sharing where we can add and delete cars which can be assign
 
 * `controller` - Rest controllers
 * `dto` - Data transfer objects for request and response
-* `exception` - Classes which contain some custom exceptions
-* `lib` - Classes which contain validation of User
+* `exception` - Classes that contain some custom exceptions
+* `lib` - Classes that contain validation of User
 * `model` - Classes which describe objects as `Car`, `Payment`, `Rental`, `User`, `UserRole`
-* `repository` - Classes which contain methods that work with repository
+* `repository` - Classes that contain methods that work with the repository
 * `security` - Contains `JWT Token` and `AuthenticationSeervice`
 * `service` - Provides business logic, includes mapper-s for dto
 * `resources` - Contains scripts, database changelog, and properties
