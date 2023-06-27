@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -36,7 +35,6 @@ class RentalRepositoryTest {
     private RentalRepository rentalRepository;
 
     @Test
-    @Sql("/scripts/init_rentals.sql")
     void findAllByUserIdAndActualReturnDateIsNullTest() {
         List<Rental> actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNull(1L);
         Assertions.assertEquals(2, actual.size());
@@ -48,20 +46,19 @@ class RentalRepositoryTest {
     }
 
     @Test
-    @Sql("/scripts/init_rentals.sql")
     void findAllByUserIdAndActualReturnDateIsNotNullTest() {
         List<Rental> actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNotNull(1L);
         Assertions.assertEquals(1, actual.size());
         Assertions.assertEquals(3L, actual.get(0).getId());
-        Assertions.assertEquals(LocalDate.of(2023, 6, 1), actual.get(0).getActualReturnDate());
+        Assertions.assertEquals(LocalDate.of(2023, 6, 2), actual.get(0).getActualReturnDate());
 
         actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNotNull(2L);
         Assertions.assertEquals(3, actual.size());
         Assertions.assertEquals(4L, actual.get(0).getId());
         Assertions.assertEquals(5L, actual.get(1).getId());
         Assertions.assertEquals(6L, actual.get(2).getId());
-        Assertions.assertEquals(LocalDate.of(2023, 6, 1), actual.get(0).getActualReturnDate());
-        Assertions.assertEquals(LocalDate.of(2023, 6, 2), actual.get(1).getActualReturnDate());
-        Assertions.assertEquals(LocalDate.of(2023, 6, 3), actual.get(2).getActualReturnDate());
+        Assertions.assertEquals(LocalDate.of(2023, 6, 3), actual.get(0).getActualReturnDate());
+        Assertions.assertEquals(LocalDate.of(2023, 6, 4), actual.get(1).getActualReturnDate());
+        Assertions.assertEquals(LocalDate.of(2023, 6, 5), actual.get(2).getActualReturnDate());
     }
 }
