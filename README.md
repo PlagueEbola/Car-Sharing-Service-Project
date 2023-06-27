@@ -1,8 +1,7 @@
 # Car-Sharing-Service-Project
 <img src="https://cdn.dribbble.com/users/508588/screenshots/14845034/media/18078f287ce75878d1858ab43d7607e2.jpg?compress=1&resize=400x300">
 Car Sharing
-This project is a simulation of car sharing where we can add, and delete cars, and users, and assign users to 
-car and realized and login logic which doesn`t allow unregistered users to change or see some details.
+A simulation of car sharing where we can add and delete cars which can be assignedto a user. It features an authentication and authorization system to allow or deny access to different features to users with appropriate rights.  And with the help of Stripe, payments are made easier. It also utilizes Telegram bots to send notifications to users.
 
 # Features
 
