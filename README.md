@@ -16,10 +16,11 @@ car and realized and login logic which doesn`t allow unregistered users to chang
 
 # Getting Started
 
-* Firstly you should copy the repository to your local machine
-* Replace values in application.properties and liquibase.properties to your data
-* Then run Mysql server
-* Run the priject on your machine
+* Firstly you should copy the repository to your local machine.
+* Replace values in in `.env` file.
+* Build the project using the command: `mvn clean package`.
+* Launch the `Docker` on your device. 
+* Run the command: `docker-compose up`.
 * Ther will be an account injected by default with credentials
   - login: `bob@gmail.com`, password: `123`
   - login: `alice@gmail.com`, password: `12345`
