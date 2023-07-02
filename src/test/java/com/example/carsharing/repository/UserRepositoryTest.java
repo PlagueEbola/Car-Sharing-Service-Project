@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -36,6 +37,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
+    @Sql("/scripts/init_users_with_roles.sql")
     void findUserByEmailTest() {
         Optional<User> actual = userRepository.findUserByEmail("bob@gmail.com");
         Assertions.assertEquals(1L, actual.get().getId());

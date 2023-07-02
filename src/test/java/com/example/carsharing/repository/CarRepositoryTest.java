@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -35,6 +36,7 @@ class CarRepositoryTest {
     private CarRepository carRepository;
 
     @Test
+    @Sql("/scripts/init_cars.sql")
     void findByBrandAndModelTest() {
         Optional<Car> actual = carRepository.findByBrandAndModel("Citroen", "C5");
         Assertions.assertEquals(1L, actual.get().getId());

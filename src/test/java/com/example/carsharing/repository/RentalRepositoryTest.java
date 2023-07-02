@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -35,6 +36,7 @@ class RentalRepositoryTest {
     private RentalRepository rentalRepository;
 
     @Test
+    @Sql("/scripts/init_rentals_with_actual_return_date_is_null.sql")
     void findAllByUserIdAndActualReturnDateIsNullTest() {
         List<Rental> actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNull(1L);
         Assertions.assertEquals(2, actual.size());
@@ -46,6 +48,7 @@ class RentalRepositoryTest {
     }
 
     @Test
+    @Sql("/scripts/init_rentals_with_actual_return_date.sql")
     void findAllByUserIdAndActualReturnDateIsNotNullTest() {
         List<Rental> actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNotNull(1L);
         Assertions.assertEquals(1, actual.size());
