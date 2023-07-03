@@ -1,6 +1,7 @@
 package com.example.carsharing.repository;
 
 import com.example.carsharing.model.Car;
+import com.example.carsharing.repository.util.MySQLContainerSingleton;
 import java.math.BigDecimal;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -19,22 +21,18 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CarRepositoryTest {
     @Container
-    static MySQLContainer<?> database = new MySQLContainer<>("mysql:8")
-            .withDatabaseName("testing")
-            .withPassword("password")
-            .withUsername("username");
+    static MySQLContainer<?> database = MySQLContainerSingleton.getContainer();
 
     @DynamicPropertySource
     static void setDatasourceProperties(DynamicPropertyRegistry propertyRegistry) {
-        propertyRegistry.add("spring.datasource.url", database::getJdbcUrl);
-        propertyRegistry.add("spring.datasource.password", database::getPassword);
-        propertyRegistry.add("spring.datasource.username", database::getUsername);
+        MySQLContainerSingleton.setDatasourceProperties(propertyRegistry);
     }
 
     @Autowired
     private CarRepository carRepository;
 
     @Test
+    @Sql("/scripts/init_cars.sql")
     void findByBrandAndModelTest() {
         Optional<Car> actual = carRepository.findByBrandAndModel("Citroen", "C5");
         Assertions.assertEquals(1L, actual.get().getId());

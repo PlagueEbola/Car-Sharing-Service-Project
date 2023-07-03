@@ -1,6 +1,7 @@
 package com.example.carsharing.repository;
 
 import com.example.carsharing.model.Rental;
+import com.example.carsharing.repository.util.MySQLContainerSingleton;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -19,22 +21,18 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class RentalRepositoryTest {
     @Container
-    static MySQLContainer<?> database = new MySQLContainer<>("mysql:8")
-            .withDatabaseName("testing")
-            .withPassword("password")
-            .withUsername("username");
+    static MySQLContainer<?> database = MySQLContainerSingleton.getContainer();
 
     @DynamicPropertySource
     static void setDatasourceProperties(DynamicPropertyRegistry propertyRegistry) {
-        propertyRegistry.add("spring.datasource.url", database::getJdbcUrl);
-        propertyRegistry.add("spring.datasource.password", database::getPassword);
-        propertyRegistry.add("spring.datasource.username", database::getUsername);
+        MySQLContainerSingleton.setDatasourceProperties(propertyRegistry);
     }
 
     @Autowired
     private RentalRepository rentalRepository;
 
     @Test
+    @Sql("/scripts/init_rentals_with_actual_return_date_is_null.sql")
     void findAllByUserIdAndActualReturnDateIsNullTest() {
         List<Rental> actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNull(1L);
         Assertions.assertEquals(2, actual.size());
@@ -46,6 +44,7 @@ class RentalRepositoryTest {
     }
 
     @Test
+    @Sql("/scripts/init_rentals_with_actual_return_date.sql")
     void findAllByUserIdAndActualReturnDateIsNotNullTest() {
         List<Rental> actual = rentalRepository.findAllByUserIdAndActualReturnDateIsNotNull(1L);
         Assertions.assertEquals(1, actual.size());
