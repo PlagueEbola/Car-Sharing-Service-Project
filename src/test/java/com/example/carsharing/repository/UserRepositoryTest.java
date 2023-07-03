@@ -2,6 +2,7 @@ package com.example.carsharing.repository;
 
 import com.example.carsharing.model.User;
 import com.example.carsharing.model.UserRole;
+import com.example.carsharing.repository.util.MySQLContainerSingleton;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -21,16 +22,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserRepositoryTest {
     @Container
-    static MySQLContainer<?> database = new MySQLContainer<>("mysql:8")
-            .withDatabaseName("testing")
-            .withPassword("password")
-            .withUsername("username");
+    static MySQLContainer<?> database = MySQLContainerSingleton.getContainer();
 
     @DynamicPropertySource
     static void setDatasourceProperties(DynamicPropertyRegistry propertyRegistry) {
-        propertyRegistry.add("spring.datasource.url", database::getJdbcUrl);
-        propertyRegistry.add("spring.datasource.password", database::getPassword);
-        propertyRegistry.add("spring.datasource.username", database::getUsername);
+        MySQLContainerSingleton.setDatasourceProperties(propertyRegistry);
     }
 
     @Autowired
